@@ -2,9 +2,349 @@
 <head>
 <title>Camera</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<style>
+.col{
+  text-align:center;
+}
+.row{
+  padding-top:10px;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+  padding-top:5px;
+}
+
+</style>
+</style>
 </head>
 <body>
-	<script type="text/javascript">
+	 
+<div class="container">
+<div class="row"> 
+    <div class="col"><h3>Light A</h3></div>
+    <div class="col"><h3>Light B</h3></div>
+    <div class="w-100"></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+    <div class="w-100"></div>
+    <div class="col">
+		<label class="switch" >
+			<input type="checkbox" class="lighta">
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="col">
+		<div class="slidecontainer">
+			<input type="range" min="1" max="100" value="100" class="lighta">
+		</div>
+	</div>
+    <div class="col">
+		<label class="switch">
+		<input type="checkbox" class="lightb">
+		<span class="slider round"></span>
+	</label>
+	</div>
+<div class="col">
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="100" >
+</div></div>
+</div>
+ <div class="row"> 
+    <div class="col"><h3>Light C</h3></div>
+    <div class="col"><h3>Light D</h3></div>
+    <div class="w-100"></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+    <div class="w-100"></div>
+    <div class="col">
+		<label class="switch" >
+			<input type="checkbox" class="lightc">
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="col">
+		<div class="slidecontainer">
+			<input type="range" min="1" max="100" value="100" class="lighta">
+		</div>
+	</div>
+    <div class="col">
+		<label class="switch">
+		<input type="checkbox" class="lightd">
+		<span class="slider round"></span>
+	</label>
+	</div>
+<div class="col">
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="100" >
+</div></div>
+</div>
+<div class="row"> 
+    <div class="col"><h3>Light E</h3></div>
+    <div class="col"><h3>Light F</h3></div>
+    <div class="w-100"></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+    <div class="w-100"></div>
+    <div class="col">
+		<label class="switch" >
+			<input type="checkbox" class="lighte">
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="col">
+		<div class="slidecontainer">
+			<input type="range" min="1" max="100" value="100" class="lighta">
+		</div>
+	</div>
+    <div class="col">
+		<label class="switch">
+		<input type="checkbox" class="lightf">
+		<span class="slider round"></span>
+	</label>
+	</div>
+<div class="col">
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="100" >
+</div></div>
+</div>
+<div class="row"> 
+    <div class="col"><h3>Light G</h3></div>
+    <div class="col"><h3>Light H</h3></div>
+    <div class="w-100"></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+    <div class="w-100"></div>
+    <div class="col">
+		<label class="switch" >
+			<input type="checkbox" class="lighta">
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="col">
+		<div class="slidecontainer">
+			<input type="range" min="1" max="100" value="100" class="lighta">
+		</div>
+	</div>
+    <div class="col">
+		<label class="switch">
+		<input type="checkbox" class="lightb">
+		<span class="slider round"></span>
+	</label>
+	</div>
+<div class="col">
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="100" >
+</div></div>
+</div>
+<div class="row"> 
+    <div class="col"><h3>Light I</h3></div>
+    <div class="col"><h3>Light J</h3></div>
+    <div class="w-100"></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+    <div class="w-100"></div>
+    <div class="col">
+		<label class="switch" >
+			<input type="checkbox" class="lighta">
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="col">
+		<div class="slidecontainer">
+			<input type="range" min="1" max="100" value="100" class="lighta">
+		</div>
+	</div>
+    <div class="col">
+		<label class="switch">
+		<input type="checkbox" class="lightb">
+		<span class="slider round"></span>
+	</label>
+	</div>
+<div class="col">
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="100" >
+</div></div>
+</div>
+<div class="row"> 
+    <div class="col"><h3>Light K</h3></div>
+    <div class="col"><h3>Light L</h3></div>
+    <div class="w-100"></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+	<div class="col"><h5>Switch</h5></div>
+    <div class="col"><h5>Brightness</h5></div>
+    <div class="w-100"></div>
+    <div class="col">
+		<label class="switch" >
+			<input type="checkbox" class="lighta">
+			<span class="slider round"></span>
+		</label>
+	</div>
+	<div class="col">
+		<div class="slidecontainer">
+			<input type="range" min="1" max="100" value="100" class="lighta">
+		</div>
+	</div>
+    <div class="col">
+		<label class="switch">
+		<input type="checkbox" class="lightb">
+		<span class="slider round"></span>
+	</label>
+	</div>
+<div class="col">
+<div class="slidecontainer">
+  <input type="range" min="1" max="100" value="100" >
+</div></div>
+</div>
+ </div>
+
+<center><h1></h1></center>
+<center>
+	  <div style="width:100px;display:inline-block"></div><br>
+	 <button class="btn btn-secondary" onclick="movea1()">ON1</button>
+	 <button class="btn btn-secondary" onclick="movea2()">AUTO</button>
+	 <button class="btn btn-secondary" onclick="movea3()">OFF</button><br>
+	 <input type="text" id="lbUsers1" style="width:80px;">
+	 <input type="text" id="lbUsers2" style="width:80px;">
+	 <input type="text" id="lbUsers3" style="width:80px;">
+	 <input type="text" id="lbUsers4" style="width:80px;"><br>
+	
+	   <button class="btn btn-secondary" onclick="moveb1()">DoorKey</button>
+	 <button class="btn btn-secondary" onclick="moveb3()">L1ON</button>
+	 
+	  <button class="btn btn-secondary" onclick="moveb2()">L1OFF</button>
+	  <button class="btn btn-secondary" onclick="moveb5()">L2ON</button>
+	 
+	  <button class="btn btn-secondary" onclick="moveb4()">L2OFF</button><br>
+	 	 <input type="text" id="lbUsers1a" style="width:80px;">
+	 <input type="text" id="lbUsers2a" style="width:80px;">
+	 <input type="text" id="lbUsers3a" style="width:80px;">
+	 <input type="text" id="lbUsers4a" style="width:80px;"><br>
+	 <div style="width:100px;display:inline-block"></div>
+	   <button class="btn btn-secondary" onclick="movec1()">L3ON</button>
+	 <button class="btn btn-secondary" onclick="movec2()">L3OFF</button>
+	 
+	  <button class="btn btn-secondary" onclick="movec3()">L4ON</button>
+	   <button class="btn btn-secondary" onclick="movec4()">L4OFF</button>
+	   <button class="btn btn-secondary" onclick="movec5()">L5ON</button>
+	 <button class="btn btn-secondary" onclick="movec6()">L5OFF</button>
+	 
+	  <button class="btn btn-secondary" onclick="movec7()">L6ON</button>
+	   <button class="btn btn-secondary" onclick="movec8()">L6OFF</button><br> 
+	  
+	 	 <input type="text" id="lbUsers1b" style="width:80px;">
+	 <input type="text" id="lbUsers2b" style="width:80px;">
+	 <input type="text" id="lbUsers3b" style="width:80px;">
+	 <input type="text" id="lbUsers4b" style="width:80px;"><br>
+	 <div style="width:100px;display:inline-block"></div>
+	 <div style="width:100px;display:inline-block"></div>
+	   <button class="btn btn-secondary" onclick="moved1()">ON4</button>
+	 <button class="btn btn-secondary" onclick="moved2()">1/2</button>
+	 
+	  <button class="btn btn-secondary" onclick="moved3()">OFF</button><br>
+	  	 <input type="text" id="lbUsers1c" style="width:80px;">
+	 <input type="text" id="lbUsers2c" style="width:80px;">
+	 <input type="text" id="lbUsers3c" style="width:80px;">
+	 <input type="text" id="lbUsers4c" style="width:80px;"><br>
+	 <div style="width:100px;display:inline-block"></div>
+	 <div style="width:100px;display:inline-block"></div>
+         <button class="btn btn-secondary" onclick="moveg1()">ON5</button>
+	 <button class="btn btn-secondary" onclick="moveg2()">1/2</button>
+	 
+	  <button class="btn btn-secondary" onclick="moveg3()">OFF</button><br>
+         <button class="btn btn-secondary" onclick="moveg4()">ON6</button>
+         <button class="btn btn-secondary" onclick="moveg5()">1/2</button>
+
+          <button class="btn btn-secondary" onclick="moveg6()">OFF</button><br>
+
+	  	 <input type="text" id="lbUsers1d" style="width:80px;">
+	 <input type="text" id="lbUsers2d" style="width:80px;">
+	 <input type="text" id="lbUsers3d" style="width:80px;">
+	 <input type="text" id="lbUsers4d" style="width:80px;"><br>
+	    <button class="btn btn-secondary" onclick="movee1()">WC</button>
+	   <button class="btn btn-secondary" onclick="movee3()">OFF</button>
+	
+	    <button class="btn btn-secondary" onclick="movef1()">BED</button>
+		  <button class="btn btn-secondary" onclick="movef3()">OFF</button>
+	 <br>
+	
+	 
+</center>
+<script type="text/javascript">
 	var ws;
 	//document.getElementById('lbUsers1').text = 'newid';
 	// document.getElementById("lbUsers1").id = "newid";
@@ -118,6 +458,87 @@
 	       }
 
    }
+	
+	$(':checkbox').change(function () {
+		var this_checked=$(this).prop("checked");
+		switch($(this).attr("class")){
+			case "lighta":
+				if (this_checked)
+					ws.send("eltn:[-1][10730001-]")
+				else
+					ws.send("eltn:[-3][10730001-]")
+				break;
+			case "lightb":
+				if (this_checked)
+					ws.send("eltn:[-2][10730002-]")
+				else
+					ws.send("eltn:[-3][10730002-]")
+				break;
+			case "lightc":
+				if (this_checked)
+					ws.send("eltn:[-4][10730002-]")
+				else
+					ws.send("eltn:[-5][10730002-]")
+				break;
+			case "lightd":
+			
+				if (this_checked)
+					ws.send("eltn:[-1][10730003-]")
+				else
+					ws.send("eltn:[-2][10730003-]")
+				break;
+			case "lighte":
+				if (this_checked)
+					ws.send("eltn:[-3][10730003-]")
+				else
+					ws.send("eltn:[-4][10730003-]")
+				break;
+			case "lightf":
+				if (this_checked)
+					ws.send("eltn:[-5][10730003-]")
+				else
+					ws.send("eltn:[-6][10730003-]")
+				break;
+			case "lightg":
+				if (this_checked)
+					ws.send("eltn:[-7][10730001-]")
+				else
+					ws.send("eltn:[-8][10730003-]")
+				break;
+			case "lighth":
+				if (this_checked)
+					ws.send("eltn:[-1][10730004-]")
+				else
+					ws.send("eltn:[-3][10730004-]")
+				break;
+			case "lighti":
+				if (this_checked)
+					ws.send("eltn:[-1][10730005-]")
+				else
+					ws.send("eltn:[-3][10730005-]")
+				break;
+			case "lightj":
+				if (this_checked)
+					ws.send("eltn:[-1][107300A5-]")
+				else
+					ws.send("eltn:[-3][107300A5-]")
+				break;
+			case "lightk":
+				if (this_checked)
+					ws.send("eltn:[-9][10730009-]")
+				else
+					ws.send("eltn:[-7][10730009-]")
+				break;
+			case "lightl":
+				if (this_checked)
+					ws.send("eltn:[-6][10730009-]")
+				else
+					ws.send("eltn:[-4][10730009-]")
+				break;
+			default:
+				break;
+		}
+	});
 
 
 	function moveup(){
@@ -198,7 +619,7 @@
 	function movef2(){
 		ws.send("eltn:[-5][10730009-]")
 	} 
-	function movef3(){
+	function movef3(){	
 		ws.send("eltn:[-4][10730009-]")
 	} 	
 	function moveg1(){
@@ -210,15 +631,15 @@
 	function moveg3(){
 		ws.send("eltn:[-3][10730005-]")
 	}
-        function moveg4(){
-                ws.send("eltn:[-1][107300A5-]")
-        }
-        function moveg5(){
-                ws.send("eltn:[-2][107300A5-]")
-        }
-        function moveg6(){
-                ws.send("eltn:[-3][107300A5-]")
-        }
+	function moveg4(){
+		ws.send("eltn:[-1][107300A5-]")
+	}
+	function moveg5(){
+		ws.send("eltn:[-2][107300A5-]")
+	}
+	function moveg6(){
+		ws.send("eltn:[-3][107300A5-]")
+	}
  	
 function elbk(msg){
      tem1= msg.substring(msg.indexOf("[")+1,msg.indexOf("|"))
@@ -300,77 +721,5 @@ function elzt(msg){
  
 }	
 	</script>
-<center><h1></h1></center>
-<center>
-	  <div style="width:100px;display:inline-block"></div><br>
-	 <button class="btn btn-secondary" onclick="movea1()">ON1</button>
-	 <button class="btn btn-secondary" onclick="movea2()">AUTO</button>
-	 <button class="btn btn-secondary" onclick="movea3()">OFF</button><br>
-	 <input type="text" id="lbUsers1" style="width:80px;">
-	 <input type="text" id="lbUsers2" style="width:80px;">
-	 <input type="text" id="lbUsers3" style="width:80px;">
-	 <input type="text" id="lbUsers4" style="width:80px;"><br>
-	
-	   <button class="btn btn-secondary" onclick="moveb1()">DoorKey</button>
-	 <button class="btn btn-secondary" onclick="moveb3()">L1ON</button>
-	 
-	  <button class="btn btn-secondary" onclick="moveb2()">L1OFF</button>
-	  <button class="btn btn-secondary" onclick="moveb5()">L2ON</button>
-	 
-	  <button class="btn btn-secondary" onclick="moveb4()">L2OFF</button><br>
-	 	 <input type="text" id="lbUsers1a" style="width:80px;">
-	 <input type="text" id="lbUsers2a" style="width:80px;">
-	 <input type="text" id="lbUsers3a" style="width:80px;">
-	 <input type="text" id="lbUsers4a" style="width:80px;"><br>
-	 <div style="width:100px;display:inline-block"></div>
-	   <button class="btn btn-secondary" onclick="movec1()">L3ON</button>
-	 <button class="btn btn-secondary" onclick="movec2()">L3OFF</button>
-	 
-	  <button class="btn btn-secondary" onclick="movec3()">L4ON</button>
-	   <button class="btn btn-secondary" onclick="movec4()">L4OFF</button>
-	   <button class="btn btn-secondary" onclick="movec5()">L5ON</button>
-	 <button class="btn btn-secondary" onclick="movec6()">L5OFF</button>
-	 
-	  <button class="btn btn-secondary" onclick="movec7()">L6ON</button>
-	   <button class="btn btn-secondary" onclick="movec8()">L6OFF</button><br> 
-	  
-	 	 <input type="text" id="lbUsers1b" style="width:80px;">
-	 <input type="text" id="lbUsers2b" style="width:80px;">
-	 <input type="text" id="lbUsers3b" style="width:80px;">
-	 <input type="text" id="lbUsers4b" style="width:80px;"><br>
-	 <div style="width:100px;display:inline-block"></div>
-	 <div style="width:100px;display:inline-block"></div>
-	   <button class="btn btn-secondary" onclick="moved1()">ON4</button>
-	 <button class="btn btn-secondary" onclick="moved2()">1/2</button>
-	 
-	  <button class="btn btn-secondary" onclick="moved3()">OFF</button><br>
-	  	 <input type="text" id="lbUsers1c" style="width:80px;">
-	 <input type="text" id="lbUsers2c" style="width:80px;">
-	 <input type="text" id="lbUsers3c" style="width:80px;">
-	 <input type="text" id="lbUsers4c" style="width:80px;"><br>
-	 <div style="width:100px;display:inline-block"></div>
-	 <div style="width:100px;display:inline-block"></div>
-         <button class="btn btn-secondary" onclick="moveg1()">ON5</button>
-	 <button class="btn btn-secondary" onclick="moveg2()">1/2</button>
-	 
-	  <button class="btn btn-secondary" onclick="moveg3()">OFF</button><br>
-         <button class="btn btn-secondary" onclick="moveg4()">ON6</button>
-         <button class="btn btn-secondary" onclick="moveg5()">1/2</button>
-
-          <button class="btn btn-secondary" onclick="moveg6()">OFF</button><br>
-
-	  	 <input type="text" id="lbUsers1d" style="width:80px;">
-	 <input type="text" id="lbUsers2d" style="width:80px;">
-	 <input type="text" id="lbUsers3d" style="width:80px;">
-	 <input type="text" id="lbUsers4d" style="width:80px;"><br>
-	    <button class="btn btn-secondary" onclick="movee1()">WC</button>
-	   <button class="btn btn-secondary" onclick="movee3()">OFF</button>
-	
-	    <button class="btn btn-secondary" onclick="movef1()">BED</button>
-		  <button class="btn btn-secondary" onclick="movef3()">OFF</button>
-	 <br>
-	
-	 
-</center>
 </body>
 </html>
