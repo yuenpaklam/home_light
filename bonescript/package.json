@@ -1,0 +1,99 @@
+{
+  "_args": [
+    [
+      {
+        "raw": ".",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": ".",
+        "spec": "/tmp/bonescript",
+        "type": "directory"
+      },
+      "/tmp/bonescript"
+    ]
+  ],
+  "_from": "../../tmp/bonescript",
+  "_id": "bonescript@0.6.3",
+  "_inCache": true,
+  "_location": "/bonescript",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": ".",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": ".",
+    "spec": "/tmp/bonescript",
+    "type": "directory"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../../tmp/bonescript",
+  "_shasum": "3c70df0fc15110a79294b34249a7f816197aeddd",
+  "_shrinkwrap": null,
+  "_spec": ".",
+  "_where": "/tmp/bonescript",
+  "author": {
+    "name": "Jason Kridner",
+    "email": "jkridner@beagleboard.org",
+    "url": "http://jkridner.wordpress.com"
+  },
+  "bugs": {
+    "url": "https://github.com/jadonk/bonescript/issues"
+  },
+  "dependencies": {
+    "epoll": "0.1.18",
+    "express": "4.13.4",
+    "i2c": "0.2.3",
+    "pi-spi": "1.0.2",
+    "roboticscape": "0.0.2",
+    "serialport": "6.0.1",
+    "socket.io": "1.4.5",
+    "systemd": "0.2.6",
+    "winston": "2.1.1"
+  },
+  "description": "Physical computing library for embedded Linux",
+  "devDependencies": {
+    "coveralls": "~2.10.0",
+    "jscoverage": "~0.5.1",
+    "nodeunit": "~0.9.0"
+  },
+  "engines": {
+    "node": ">= 4.0.0"
+  },
+  "gitHead": "ae48732f846609749632584b9f59d2b4906b7dce",
+  "homepage": "http://beagleboard.org/bonescript",
+  "keywords": [
+    "embedded",
+    "linux",
+    "beagleboard",
+    "beaglebone",
+    "physical",
+    "gpio",
+    "arduino"
+  ],
+  "license": "MIT",
+  "main": "main",
+  "name": "bonescript",
+  "optionalDependencies": {
+    "epoll": "0.1.18",
+    "i2c": "0.2.3",
+    "pi-spi": "1.0.2",
+    "roboticscape": "0.0.2",
+    "serialport": "6.0.1"
+  },
+  "readme": "BoneScript\n==========\n\n[![Join the chat at https://gitter.im/jadonk/bonescript](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jadonk/bonescript?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)\n[![Build Status](https://travis-ci.org/jadonk/bonescript.svg?branch=0.5.x)](https://travis-ci.org/jadonk/bonescript)\n[![Coverage Status](https://img.shields.io/coveralls/jadonk/bonescript.svg)](https://coveralls.io/r/jadonk/bonescript)\n\nBoneScript is a node.js library for physical computing on embedded Linux,\nstarting with support for BeagleBone.\n\nInformation on the language is available at http://nodejs.org.\n\nTo check the version and to see if BoneScript is in your path, try running:\n````sh\nnode -pe \"require('bonescript').getPlatform().bonescript\"\n````\n\nAdditional documentation is available at http://beagleboard.org/bonescript.\n\nThe concept is to use Arduino-like functions written in JavaScript to\nsimplify learning how to do physical computing tasks under embedded Linux\nand to further provide support for rapidly creating GUIs for your embedded\napplications through the use of HTML5/JavaScript web pages.\n\n\nInstallation\n------------\nBoneScript comes installed on your BeagleBone. To update\nto the latest revision or install it on another distribution, use 'npm':\n\n````sh\nTERM=none sudo npm cache clear\nTERM=none sudo npm install -g --prefix /usr/local --unsafe-perm bonescript\n````\n\nAngstrom prerequisites:\n````sh\nopkg update\nopkg install python-misc python-modules\n````\n\nDebian and Ubuntu prerequisites:\n* Credit to http://learn.adafruit.com/introduction-to-the-beaglebone-black-device-tree/compiling-an-overlay\n````sh\nsudo apt-get install -y build-essential g++ python-setuptools python2.7-dev\nwget -c https://raw.github.com/RobertCNelson/tools/master/pkgs/dtc.sh\nchmod +x dtc.sh\n./dtc.sh\n````\n\nSome steps to consider:\n````sh\ncp bonescript/etc/default/node /etc/default/node\ncp bonescript/etc/profile.d/node.sh /etc/profile.d/node.sh\ncp bonescript/systemd/\\* /lib/systemd/system\nsystemctl enable bonescript.socket\nsystemctl enable bonescript-autorun.service\n````\n\nLaunching applications persistently\n-----------------------------------\nTo have your applications launch on startup, simply drop them into the\n/var/lib/cloud9/autorun folder.  Moving them out of that folder will kill\nthe processes.  You are expected to only drop in already bug-free apps into\nthis folder as there isn't a good way to perform debug on them.\n\nNote on code state\n==================\nThere's still a lot of development going on, so be sure to check back on a \nfrequent basis.  Many of the fancier peripherals aren't yet supported\nexcept through performing file I/O.\n\nDirectory layout\n----------------\n* index.js: Main BoneScript source code\n* autorun.js: Node.JS app to run apps dropped in the autorun folder\n* package.json: NPM.JS package descriptor\n* server.js: BoneScript web server to serve up remote procedure calls\n* dts: Devicetree templates\n* etc: Configuration files to be placed in target distro\n* src: Library source code\n* systemd: Configuration files for systemd to start services\n* test: To-be-automated test code\n\nTemplate\n========\nFor a Bonescript application, you must currently manually 'require' the\nbonescript library.  Functions are then referenced through the object\nprovided back from require.\n\nI started out trying to provide Arduino-like setup/loop functions, but the\nidea really isn't a good match for JavaScript.  Using JavaScript's native\nflow works best, but the familiar functions are enough to give you a boost\nin your physical computing productivity.\n\nHere's an example:\n\n````javascript\nvar b = require('bonescript');\n\nb.pinMode('P8_12', b.INPUT);\nb.pinMode('P8_13', b.OUTPUT);\n\nsetInterval(copyInputToOutput, 100);\n\nfunction copyInputToOutput() {\n    b.digitalRead('P8_12', writeToOutput);\n    function writeToOutput(x) {\n        b.digitalWrite('P8_13', x.value);\n    }\n}\n````\n\nThe 'P8\\_12' and 'P8\\_13' are pin names on the board and the above example\nwould copy the input value at P8\\_12 to the output P8\\_13 every 100 ms.\n\n\nAPI\n===\nWhen a callback is provided, the functions will behave asynchronously.\nWithout a callback provided, the functions will synchronize and complete\nbefore returning.\n\nSystem\n------\n* getPlatform([callback]) -> platform\n* getEeproms([callback]) -> eeproms\n* echo(data, [callback]) -> data\n* readTextFile(filename, [callback]) -> data\n* writeTextFile(filename, data, [callback])\n* setDate(date, [callback])\n\nDigital and Analog I/O\n----------------------\n* analogRead(pin, [callback]) -> value\n* analogWrite(pin, value, [freq], [callback])\n* attachInterrupt(pin, handler, mode, [callback])\n* detachInterrupt(pin, [callback])\n* digitalRead(pin, [calback]) -> value\n* digitalWrite(pin, value, [callback])\n* pinMode(pin, direction, [mux], [pullup], [slew], [callback])\n* getPinMode(pin, [callback]) -> pinMode\n* shiftOut(dataPin, clockPin, bitOrder, val, [callback])\n\nSerial\n------\nUses https://github.com/voodootikigod/node-serialport\n* serialOpen(port, options, [callback])\n* serialWrite(port, data, [callback])\n* serialParsers is serialport.parsers\n\nI2C\n---\nUses https://github.com/korevec/node-i2c\n* i2cOpen(port, address, options, [callback])\n* i2cScan(port, [callback])\n* i2cWriteByte(port, byte, [callback])\n* i2cWriteBytes(port, command, bytes, [callback])\n* i2cReadByte(port, [callback])\n* i2cReadBytes(port, command, length, [callback])\n* i2cStream(port, command, length, [callback])\n\nBits/Bytes, Math, Trigonometry and Random Numbers\n-------------------------------------------------\n* lowByte(value)\n* highByte(value)\n* bitRead(value, bitnum)\n* bitWrite(value, bitnum, bitdata) \n* bitSet(value, bitnum) \n* bitClear(value, bitnum) \n* bit(bitnum)\n* min(x, y)\n* max(x, y)\n* abs(x)\n* constrain(x, a, b)\n* map(value, fromLow, fromHigh, toLow, toHigh)\n* pow(x, y)\n* sqrt(x)\n* sin(radians)\n* cos(radians)\n* tan(radians)\n* randomSeed(x)\n* random([min], max)\n\n\nNote on performance\n===================\nThis code is totally unoptimized.  The list of possible optimizations that run\nthrough my head is staggering.  The good news is that I think it can all be\ndone without impacting the API, primarily thanks to the introspection\ncapabilities of JavaScript.\n\nEventually, this is planned to enable real-time usage, directly from\nJavaScript.  The plan is to attact the ability to use this programming environment\nin real-time on several fronts:\n* Enabling multiple loops and analyzing them to determine if they can be off-\n  loaded to a PRU.  This will be the primary mechanism for providing real-time\n  servicing of the IOs.\n* Providing higher-order services that utilize the standard peripherals for\n  their intended use:\n  - Serial drivers for I2C, SPI, UARTs, etc.\n  - analogWrite for PWMs using hardware PWMs, timers, kernel GPIO drivers, etc.\n* Adding real-time patches to the kernel\n\n\nThe JavaScript language provides some features that I think are really cool\nfor doing embedded programming and node.js does some things to help enable\nthat.  The primary one is that the I/O functions are all asynchronous.  For\nembedded systems, this is especially useful for performing low-latency tasks\nthat respond to events in the system.  What makes JavaScript so much easier\nthan other languages for doing this is that it keeps the full context around\nthe handler, so you don't have to worry about it.\n\nPlans\n=====\n* SPI support\n* PRU support\n* Handling array of pins in pinMode and getPinMode\n* Saving off created dtbo and writing configuration to cape EEPROM\n\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jadonk/bonescript.git"
+  },
+  "scripts": {
+    "coveralls": "NODE_PATH=.. jscoverage src && NODE_PATH=.. BONESCRIPT_COV=1 nodeunit --reporter=lcov test | coveralls",
+    "start": "node server.js",
+    "test": "NODE_PATH=.. nodeunit test"
+  },
+  "version": "0.6.3"
+}

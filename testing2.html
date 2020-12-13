@@ -1,0 +1,342 @@
+<link rel="stylesheet" href="bootstrap.min.css">
+<html>
+<body>
+<style>
+.button {
+  box-shadow: -2px 2px #AAAAAA, -1px 1px #AAAAAA;
+  border: 3px solid #AAAAAA;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  text-align:center;
+}
+
+.button.circ{
+	color:white;
+	width:50px;
+	height:50px;
+	padding-top:11px;
+	border-radius:50%;
+}
+
+.remote_control{
+	height:1500px;
+	width:500px;
+	background-color:black
+}
+
+.row >div{
+	text-align:center;
+}
+
+a.orange{
+	background-color:orange;
+	color:black;
+	border: 3px solid#9c7305;
+	box-shadow: -2px 2px #9c7305, -1px 1px #9c7305;
+}
+
+a.green{
+	background-color:green;
+	color:black;
+	border: 3px solid #013d24;
+	box-shadow: -2px 2px #013d24, -1px 1px #013d24;
+}
+
+a.grey{
+	background-color:grey;
+	color:black;
+	border: 3px solid #CCCCCC;
+	box-shadow: -2px 2px #CCCCCC, -1px 1px #CCCCCC;
+}
+
+a.yellow{
+	color:black;
+	background-color:yellow;
+	border: 3px solid #828001;
+	box-shadow: -2px 2px #828001, -1px 1px #828001;
+}
+
+a.seablue{
+	color:black;
+	background-color:#15a3cf;
+	border: 3px solid #0d5d75;
+	box-shadow: -2px 2px #0d5d75, -1px 1px #0d5d75;
+}
+
+div.row{
+	padding-top:15px;
+}
+
+.button.rect{
+	width:90px;
+	height:30px;
+	padding-top:0px;
+	border-radius:15%;
+}
+
+</style>
+<script type="text/javascript">
+	var ws;
+	//document.getElementById('lbUsers1').text = 'newid';
+	// document.getElementById("lbUsers1").id = "newid";
+	//document.getElementById('lbUsers1').innerHTML = "New<br>Text";
+    //document.getElementById('lbUsers1').value = "New text!";
+	function setConnected(connected) {
+
+	}
+	function connect() {   
+
+		if ('WebSocket' in window) {
+			//    ws = new WebSocket('ws://192.168.1.102:8038/examples/websocket/echoMessage');
+			ws = new WebSocket('ws://192.168.1.99:3099/locker/websocket/echoMessage');
+		} else if ('MozWebSocket' in window) {
+			//    ws = new MozWebSocket('ws://192.168.1.102:8038/examples/websocket/echoMessage');
+			ws = new MozWebSocket('ws://192.168.1.99:3099/locker/websocket/echoMessage');
+		} else {
+			//      alert('WebSocket is not supported by this browser.');
+			return;
+		}
+		ws.onopen = function () {
+		//	alert("connected");
+			
+			
+		}
+		setConnected(true);
+		ws.onmessage = function (event) {
+		receiveMsg(event.data);
+		
+			
+		}
+		
+		ws.onclose = function (event) {
+			//setConnected(false);
+			setTimeout(connect,5000);		
+		};
+	}
+	connect();
+	function receiveMsg(received){
+    	if(received.indexOf("elco:{-")>-1 && received.indexOf("-}")>-1 ){
+		    if(received.indexOf(")(")>-1 ){
+		//     tem1= received.substring(received.indexOf("[")+1,received.indexOf("|"))
+		//     tem2= received.substring(received.indexOf("|")+1,received.indexOf("%"))
+		//	received.substring(received.indexOf("|")+1,received.indexOf("%"))
+ 	    	var pass = elbk(received);
+		   }
+		   if (received.indexOf("[1]")>-1 || received.indexOf("[0]")>-1 || received.indexOf("[2]")>-1 || received.indexOf("[3]")>-1 ){
+			    var pass = elks(received);
+		   }
+		   if (received.indexOf("[1]")>-1 || received.indexOf("[0]")>-1 || received.indexOf("[2]")>-1 || received.indexOf("[3]")>-1 || received.indexOf(")(")>-1){
+			    
+		   }
+		   else{
+		      var pass = elkt(received);
+		   }
+ 	    }
+ 	 
+    	
+   }
+    function moveup(){
+    	ws.send("elco:[-tv3 KEY_NUMERIC_1|:|10730015]-]")
+	} 
+	function moveleft(){
+		ws.send("elco:[-10730002|Z007-]")
+	} 
+	function movea1(){
+		ws.send("elco:[-tv3 KEY_NUMERIC_1|:|10730015]-]")
+	} 
+	function movea2(){
+		ws.send("elco:[-tv3 KEY_NUMERIC_2|:|10730015]-]")
+	} 
+	function movea3(){
+		ws.send("elco:[-tv3 KEY_NUMERIC_3|:|10730015]-]")
+	} 
+	function movea4(){
+		ws.send("elco:[-tv3 KEY_NUMERIC_4|:|10730015]-]")
+	} 
+	function moveb1(){
+		ws.send("elco:[-tv3 KEY_UP|:|10730015]-]")
+	} 
+	function moveb2(){
+		ws.send("elco:[-tv3 KEY_DOWN|:|10730015]-]")
+	} 
+	function moveb3(){
+		ws.send("elco:[-tv3 KEY_HOME|:|10730015]-]")
+	} 
+	function moveb4(){
+		ws.send("elco:[-tv3 KEY_NEXT_FAVORITE|:|10730015]-]")
+	} 
+	function movec1(){
+		ws.send("elco:[-tv3 KEY_CAMERA_UP|:|10730015]-]")
+	} 
+	function movec2(){
+		ws.send("elco:[-tv3 KEY_CAMERA_LEFT|:|10730015]-]")
+	} 
+	function movec3(){
+		ws.send("elco:[-tv3 KEY_CAMERA_RIGHT|:|10730015]-]")
+	} 	
+	function movec4(){
+		ws.send("elco:[-tv3 KEY_CAMERA_DOWN|:|10730015]-]")
+	} 	
+	function moved1(){
+		ws.send("elco:[-tv3 KEY_RC|:|10730015]-]")
+	} 
+	function moved2(){
+		ws.send("elco:[-tv3 KEY_OPTION|:|10730015]-]")
+	} 
+	function moved3(){
+		ws.send("elco:[-tv3 KEY_ENTER|:|10730015]-]")
+	} 	
+	function movee1(){
+		ws.send("elco:[-tv3 KEY_PLAY|:|10730015]-]")
+	} 
+	function movee2(){
+		ws.send("elco:[-tv3 KEY_STOPCD|:|10730015]-]")
+	} 
+	function movee3(){
+		ws.send("eltn:[-7][10730009-]")
+	} 	
+	function movef1(){
+		ws.send("elco:[-tv3 KEY_OK|:|10730004]-]")
+	} 
+	function movef2(){
+		ws.send("elco:[-tv3 KEY_MUTE|:|10730004]-]")
+	} 
+	function movef3(){
+		ws.send("elco:[-tv3 KEY_TV|:|10730004]-]")
+	} 
+	function movef4(){
+		ws.send("elco:[-tv3 KEY_HP|:|10730004]-]")
+	} 	
+	function movef5(){
+		ws.send("elco:[-tv3 KEY_BLUETOOTH|:|10730004]-]")
+	} 
+	function movef6(){
+		ws.send("elco:[-tv3 KEY_AUX|:|10730004]-]")
+	} 
+	function movef7(){
+		ws.send("elco:[-tv3 KEY_DIGITS|:|10730004]-]")
+	} 
+	function movef8(){
+		ws.send("elco:[-tv3 KEY_PAUSE|:|10730004]-]")
+	} 
+	function movef9(){
+		ws.send("elco:[-tv3 KEY_BRIGHTNESS_MAX|:|10730004]-]")
+	} 	
+	function movef10(){
+		ws.send("elco:[-tv3 KEY_BRIGHTNESS_MIN|:|10730004]-]")
+	} 
+	function movef11(){
+		ws.send("elco:[-tv3 KEY_VOLUMEDOWN|:|10730004]-]")
+	} 
+	function movef12(){
+		ws.send("elco:[-tv3 KEY_VOLUMEUP|:|10730004]-]")
+	} 
+	function movef13(){
+		ws.send("elco:[-tv3 KEY_MOVE|:|10730004]-]")
+	} 
+	function movef14(){
+		ws.send("elco:[-tv3 KEY_NEWS|:|10730004]-]")
+	} 	
+	function movef15(){
+		ws.send("elco:[-tv3 KEY_MESSENGER|:|10730004]-]")
+	} 
+	function movef16(){
+		ws.send("elco:[-tv3 KEY_LOGOFF|:|10730004]-]")
+	} 
+	function movef17(){
+		ws.send("elco:[-tv3 KEY_MEDIA|:|10730004]-]")
+	} 
+	function movef18(){
+		ws.send("elco:[-tv3 KEY_HELP|:|10730004]-]")
+	} 
+	
+	function moveg1(){
+		ws.send("eltn:[-1][10730005-]")
+	} 
+	function moveg2(){
+		ws.send("eltn:[-2][10730005-]")
+	} 
+	function moveg3(){
+		ws.send("eltn:[-3][10730005-]")
+	} 	
+	function elzt(msg){
+ 
+}	
+</script>
+<div class="remote_control">
+	<div class="row" style="margin-bottom:20px;"></div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button circ orange"></a></div><div class="col-sm-3"><a href="#" class="button circ"></a></div><div class="col-sm-3"><a href="#" class="button circ green"></a></div><div class="col-sm-3"><a href="#" class="button circ green"></a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button rect" onclick="movea1()">ATEN 1</a></div><div class="col-sm-3"><a href="#" class="button rect grey" onclick="movea2()">ATEN 2</a></div><div class="col-sm-3"><a href="#" class="button rect yellow" onclick="movea3()">ATEN 3</a></div><div class="col-sm-3"><a href="#" class="button rect seablue" onclick="movea4()">ATEN 4</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4"><a href="#" class="button circ">1</a></div><div class="col-sm-4"><a href="#" class="button circ">2</a></div><div class="col-sm-4"><a href="#" class="button circ">3</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4"><a href="#" class="button circ">4</a></div><div class="col-sm-4"><a href="#" class="button circ">5</a></div><div class="col-sm-4"><a href="#" class="button circ">6</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4"><a href="#" class="button circ">7</a></div><div class="col-sm-4"><a href="#" class="button circ">8</a></div><div class="col-sm-4"><a href="#" class="button circ">9</a></div>
+	</div>
+	<div class="row" style="margin-bottom:40px;">
+		<div class="col-sm-4"><a href="#" class="button circ">Clear</a></div><div class="col-sm-4"><a href="#" class="button circ">0</a></div><div class="col-sm-4"><a href="#" class="button circ">Time</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button rect" onclick="movef1()">DENON ON</a></div><div class="col-sm-3"><a href="#" class="button rect"></a></div><div class="col-sm-3"><a href="#" class="button rect"  onclick="movef2()">MUTE</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button rect" onclick="movef3()">TV</a></div><div class="col-sm-3"><a href="#" class="button rect"  onclick="movef4()">HDMI</a></div><div class="col-sm-3"><a href="#" class="button rect"  onclick="movef5()" >BT</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button rect" onclick="movef6()">AUX</a></div><div class="col-sm-3"><a href="#" class="button rect" onclick="movef7()" >DTS</a></div><div class="col-sm-3"><a href="#" class="button rect"  onclick="movef8()">PURE</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button rect"  onclick="movef9()">BASS+</a></div><div class="col-sm-3"><a href="#" class="button rect"></a></div><div class="col-sm-3"><a href="#" class="button rect" onclick="movef10()">VOL+</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button rect"  onclick="movef11()">BASS-</a></div><div class="col-sm-3"><a href="#" class="button rect"></a></div><div class="col-sm-3"><a href="#" class="button rect"  onclick="movef12()">VOL-</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button rect"  onclick="movef13()">MOVIE</a></div><div class="col-sm-3"><a href="#" class="button rect" onclick="movef14()">NIGHT</a></div><div class="col-sm-3"><a href="#" class="button rect" onclick="movef15()">MUSIC</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button rect"  onclick="movef16()">LOW</a></div><div class="col-sm-3"><a href="#" class="button rect"  onclick="movef17()">MID</a></div><div class="col-sm-3"><a href="#" class="button rect"  onclick="movef18()">HIGH</a></div>
+	</div>
+
+	<div class="row" style="padding-bottom:200px;">
+	</div>
+	<div class="row">
+		<div class="col-sm-6"><a href="#" class="button hbrect" style="width:200px" onclick="moveb1()">TV UP</a></div><div class="col-sm-6"><a href="#" class="button hbrect" style="width:200px" onclick="moveb2()">TV DOWN</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-6"><a href="#" class="button hbrect" style="width:200px" onclick="moveb3()">HOME</a></div><div class="col-sm-6"><a href="#" class="button hbrect" style="width:200px" onclick="moveb4()">NETFLIX</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button hbrect" onclick="movee1()">PLAY</a></div><div class="col-sm-6"><a href="#" class="button hbrect" onclick="movec1()">UP</a></div><div class="col-sm-3"><a href="#" class="button hbrect" onclick="movee2()" >STOP</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button hbrect" onclick="movec2()">LEFT</a></div><div class="col-sm-6"><a href="#" class="button hbrect" style="width:200px;" onclick="moved3()">ENTER</a></div><div class="col-sm-3"><a href="#" class="button hbrect" onclick="movec3()">RIGHT</a></div>
+	</div>
+	<div class="row">
+		<div class="col-sm-3"><a href="#" class="button hbrect" onclick="moved1()">RETURN</a></div><div class="col-sm-6"><a href="#" class="button hbrect" onclick="movec4()">DOWN</a></div><div class="col-sm-3"><a href="#" class="button hbrect" onclick="moved2()">OPTION</a></div>
+	</div>
+
+	
+
+</div>
+<nav>
+  <a class="button top" href="#"><i class="icon-play"></i></a>
+  <a class="button right" href="#"><i class="icon-forward"></i></a>
+  <a class="button left" href="#"><i class="icon-backward"></i></a>
+  <a class="button bottom" href="#"><i class="icon-pause"></i></a>
+  <a class="center-button" href="#"><i class="icon-stop"></i></a>
+  <a class="center-button" href="#"><i class="icon-stop"></i></a>
+</nav>
+
+</body>
+</html>

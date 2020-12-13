@@ -1,0 +1,283 @@
+<html>
+<head>
+<title>Camera</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+	<script type="text/javascript">
+	var ws;
+	//document.getElementById('lbUsers1').text = 'newid';
+	// document.getElementById("lbUsers1").id = "newid";
+	//document.getElementById('lbUsers1').innerHTML = "New<br>Text";
+    //document.getElementById('lbUsers1').value = "New text!";
+	function setConnected(connected) {
+
+	}
+	function connect() {   
+
+		if ('WebSocket' in window) {
+			//    ws = new WebSocket('ws://192.168.1.102:8038/examples/websocket/echoMessage');
+			ws = new WebSocket('ws://192.168.1.99:3099/locker/websocket/echoMessage');
+		} else if ('MozWebSocket' in window) {
+			//    ws = new MozWebSocket('ws://192.168.1.102:8038/examples/websocket/echoMessage');
+			ws = new MozWebSocket('ws//192.168.1.99:3099/locker/websocket/echoMessage');
+		} else {
+			//      alert('WebSocket is not supported by this browser.');
+			return;
+		}
+
+
+
+		ws.onopen = function () {
+		//	alert("connected");
+			
+			
+		}
+		setConnected(true);
+		ws.onmessage = function (event) {
+		receiveMsg(event.data);
+		
+			
+		}
+		
+		ws.onclose = function (event) {
+			//setConnected(false);
+			setTimeout(connect,5000);		
+		};
+	}
+	connect();
+    function receiveMsg(received){
+          if(received.indexOf("elco:{-")>-1 && received.indexOf("-}")>-1 ){
+                    if(received.indexOf(")(")>-1 ){
+                //     tem1= received.substring(received.indexOf("[")+1,received.indexOf("|"))
+                //     tem2= received.substring(received.indexOf("|")+1,received.indexOf("%"))
+                //      received.substring(received.indexOf("|")+1,received.indexOf("%"))
+                   	var pass = elbk(received);
+		            }
+                   if (received.indexOf("[1]")>-1 || received.indexOf("[0]")>-1 || received.indexOf("[2]")>-1 || received.indexOf("[3]")>-1 ){
+                            var pass = elks(received);
+                   }
+                   else{
+                      var pass = elkt(received);
+                   }
+            }
+            if(received.indexOf("elco:{-")>-1 && received.indexOf("*:*")>-1 ){
+              tem1= received.substring(received.indexOf("elco:{-")+8,received.indexOf("*:*"))
+              tem2= received.substring(received.indexOf("*:*")+3,received.indexOf("]["))
+              document.getElementById('lbUsers3e').value = tem1;
+              document.getElementById('lbUsers4f').value = tem2;
+             }
+
+                if(received.indexOf("eltn:{-")>-1 && received.indexOf("-}")>-1 ){
+		   		   if(received.indexOf("][107300A4")>-1 ){
+					   tem1= received.substring(7,received.indexOf("][107300A4"))
+                                            if (parseInt(tem1)>99){
+					   document.getElementById('lbUsers3c').value = tem1;
+                                           }
+                   }                      
+				      if(received.indexOf("][107300B4")>-1 ){
+					   tem1= received.substring(7,received.indexOf("][107300B4"))
+                                           if (parseInt(tem1)>99){
+//					   document.getElementById('lbUsers3a').value = tem1;
+                                          }
+                   }
+				   
+				      if(received.indexOf("][107300C4")>-1 ){
+					   tem1= received.substring(7,received.indexOf("][107300C4"))
+                                           if (parseInt(tem1)>99){
+					   document.getElementById('lbUsers3').value = tem1;
+                                           }
+				   }
+                                     if(received.indexOf("][107300D4")>-1 ){
+					    tem1= received.substring(7,received.indexOf("][107300D4"))
+                                            if (parseInt(tem1)>99){ 
+                                            document.getElementById('lbUsers3ad').value = tem1;
+					    document.getElementById('lbUsers3a').value = tem1;
+                                            }
+				   }
+                                  if(received.indexOf("][107300D5")>-1 ){
+                                            tem1= received.substring(7,received.indexOf("][107300D5"))
+                                            if (parseInt(tem1)>99){
+                                            document.getElementById('lbUsers3ad').value = tem1;
+                                            }
+                                   }
+
+			          if(received.indexOf("][107300E4")>-1 ){
+					      tem1= received.substring(7,received.indexOf("][107300E4"))
+                                              if (parseInt(tem1)>99){
+					      document.getElementById('lbUsers3b').value = tem1;
+                                              }
+                   }
+                                    if(received.indexOf("][107300F4")>-1 ){
+                                              tem1= received.substring(7,received.indexOf("][107300F4"))
+                                              if (parseInt(tem1)>99){
+                                             document.getElementById('lbUsers3d').value = tem1;
+                                             }
+                                   }
+				      if(received.indexOf("][107300G4")>-1 ){
+					    tem1= received.substring(7,received.indexOf("][107300G4"))
+                                            if (parseInt(tem1)>99){
+					   document.getElementById('lbUsers3').value = tem1;
+                                           }
+                   }
+				      if(received.indexOf("][107300H4")>-1 ){
+					    tem1= received.substring(7,received.indexOf("][107300H4"))
+                                             if (parseInt(tem1)>99){
+					    document.getElementById('lbUsers3').value = tem1;
+                                            }
+                   }
+	       }
+
+   }
+
+
+	
+function elbk(msg){
+     tem1= msg.substring(msg.indexOf("[")+1,msg.indexOf("|"))
+     tem2= msg.substring(msg.indexOf("|")+1,msg.indexOf("%"))
+	 tem3= msg.substring(msg.indexOf("!")+1,msg.indexOf("&"))
+     tem4= msg.substring(msg.indexOf("&")+1,msg.indexOf(")("))
+     if(msg.indexOf("10730001")>-1 ){
+	 document.getElementById('lbUsers1').value = tem1+"/"+tem2;
+	 document.getElementById('lbUsers2').value = tem3+"/"+tem4;
+	 }
+	 if(msg.indexOf("10730002")>-1 ){
+	 document.getElementById('lbUsers1a').value = tem1+"/"+tem2;
+	 document.getElementById('lbUsers2a').value = tem3+"/"+tem4;
+	 }
+	 if(msg.indexOf("10730003")>-1 ){
+	 document.getElementById('lbUsers1b').value = tem1+"/"+tem2;
+	 document.getElementById('lbUsers2b').value = tem3+"/"+tem4;;
+	 }
+	 if(msg.indexOf("10730004")>-1 ){
+	 document.getElementById('lbUsers1c').value = tem1+"/"+tem2;
+	 document.getElementById('lbUsers2c').value = tem3+"/"+tem4;;
+	 }
+	 if(msg.indexOf("10730005")>-1 ){
+	 document.getElementById('lbUsers1d').value = tem1+"/"+tem2;
+	 document.getElementById('lbUsers2d').value = tem3+"/"+tem4;;
+	 }
+          if(msg.indexOf("10730007")>-1 ){
+         document.getElementById('lbUsers1ad').value = tem1+"/"+tem2;
+         document.getElementById('lbUsers2ad').value = tem3+"/"+tem4;;
+         }
+
+	
+}
+function elks(msg){
+     
+     tem1= msg.substring(msg.indexOf("[")+1,msg.indexOf("]"))
+ if (parseInt(tem1)>99){     
+     if(msg.indexOf("10730001")>-1 ){
+	 document.getElementById('lbUsers3').value = tem1;
+	 
+	 }
+	 if(msg.indexOf("10730002")>-1 ){
+	 document.getElementById('lbUsers3a').value = tem1;
+	
+	 }
+	 if(msg.indexOf("10730003")>-1 ){
+	 document.getElementById('lbUsers3b').value = tem1;
+	
+	 }
+	 if(msg.indexOf("10730004")>-1 ){
+	 document.getElementById('lbUsers3c').value = tem1;
+	 
+	 }
+	 if(msg.indexOf("10730005")>-1 ){
+	 document.getElementById('lbUsers3d').value = tem1;
+	 
+	 }
+         if(msg.indexOf("10730007")>-1 ){
+         document.getElementById('lbUsers3ad').value = tem1;
+
+         }
+
+   }
+}
+function elkt(msg){
+   if (msg.indexOf("|")>-1 ){
+   }
+   else {
+      tem1= msg.substring(msg.indexOf("[")+1,msg.indexOf("]"))
+    if (parseInt(tem1)>99){  
+ 
+     if(msg.indexOf("10730001")>-1 ){
+         
+	 document.getElementById('lbUsers4').value = tem1;
+	 
+	 }
+	 if(msg.indexOf("10730002")>-1 ){
+	 document.getElementById('lbUsers4a').value = tem1;
+	
+	 }
+	 if(msg.indexOf("10730003")>-1 ){
+	 document.getElementById('lbUsers4b').value = tem1;
+	
+	 }
+	 if(msg.indexOf("10730004")>-1 ){
+	 document.getElementById('lbUsers4c').value = tem1;
+	 
+	 }
+ 	 if(msg.indexOf("10730005")>-1 ){
+	 document.getElementById('lbUsers4d').value = tem1;
+	 
+	 }
+         if(msg.indexOf("10730005")>-1 ){
+         document.getElementById('lbUsers4ad').value = tem1;
+
+         }
+
+       }
+   }
+}	
+function elzt(msg){
+ 
+}	
+	</script>
+<center><h1></h1></center>
+<center>
+	  <div style="width:100px;display:inline-block"></div><br>
+	
+	 <input type="text" id="lbUsers1" style="width:80px;">
+	 <input type="text" id="lbUsers2" style="width:80px;">
+	 <input type="text" id="lbUsers3" style="width:80px;">
+	 <input type="text" id="lbUsers4" style="width:80px;"><br>
+	
+	 
+ 	 <input type="text" id="lbUsers1a" style="width:80px;">
+	 <input type="text" id="lbUsers2a" style="width:80px;">
+	 <input type="text" id="lbUsers3a" style="width:80px;">
+	 <input type="text" id="lbUsers4a" style="width:80px;"><br>
+
+         <input type="text" id="lbUsers1ad" style="width:80px;">
+         <input type="text" id="lbUsers2ad" style="width:80px;">
+         <input type="text" id="lbUsers3ad" style="width:80px;">
+         <input type="text" id="lbUsers4ad" style="width:80px;"><br>
+	
+ 	 <input type="text" id="lbUsers1b" style="width:80px;">
+	 <input type="text" id="lbUsers2b" style="width:80px;">
+	 <input type="text" id="lbUsers3b" style="width:80px;">
+	 <input type="text" id="lbUsers4b" style="width:80px;"><br>
+
+ 	 <input type="text" id="lbUsers1c" style="width:80px;">
+	 <input type="text" id="lbUsers2c" style="width:80px;">
+	 <input type="text" id="lbUsers3c" style="width:80px;">
+	 <input type="text" id="lbUsers4c" style="width:80px;"><br>
+
+	
+  	 <input type="text" id="lbUsers1d" style="width:80px;">
+	 <input type="text" id="lbUsers2d" style="width:80px;">
+	 <input type="text" id="lbUsers3d" style="width:80px;">
+	 <input type="text" id="lbUsers4d" style="width:80px;"><br>
+
+
+         <input type="text" id="lbUsers3e" style="width:80px;">
+         <input type="text" id="lbUsers4f" style="width:80px;"><br>
+
+	 <br>
+	
+	 
+</center>
+</body>
+</html>

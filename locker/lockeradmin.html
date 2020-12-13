@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.table{
+	width:98%;
+	height:90%;
+	padding: 5px;
+    display:table;}
+
+.male {
+	width:100%;
+    height:50%;
+	padding: 5px;
+    display: block;
+
+	}
+.female{
+	width:100%;
+    height:50%;
+    padding: 5px;
+    display: block;
+	}
+.td{
+	display:table-cell;
+	border-style:solid;
+    width:70px;
+    height:70px;
+    }
+
+.locker {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    font-size: 12px;
+    cursor: pointer;
+    height:100%;
+    width:100%;
+}
+.panel{
+	width:15%;
+	height:90%;
+	padding: 10px;
+    display:block;
+    text-align:center;
+
+.msg{
+	padding: 10px;
+	margin:0 auto;
+    font-size:20px;
+    display: block;
+}
+.btn{
+    background-color: #0080FF;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width:90%;
+}
+.input{
+	visibility: hidden;
+
+    display: block;
+}
+
+#connect-container {
+    float: left;
+    width: 300px;
+
+    display: block;
+}
+
+#connect-container div {
+    padding: 5px;
+}
+
+#console-container {
+    visibility: hidden;
+    float: left;
+    width: 100%;
+    display: block;
+}
+
+#console {
+    visibility: hidden;
+	text-align:left;
+    border: 1px solid #CCCCCC;
+    border-right-color: #999999;
+    border-bottom-color: #999999;
+    height: 270px;
+    overflow-y: scroll;
+    padding: 5px;
+    width: 100%;
+}
+
+#console p {
+
+    padding: 0;
+    margin: 0;
+}</style>
+<script>
+var newUser = false;
+var lockerStatus = {M001:null,M002:null,M003:null,M004:null,M005:null,M006:null,M007:null,M008:null,M009:null,M010:null,M011:null,M012:null,M013:null,M014:null,M015:null,M016:null,M017:null,M018:null,M019:null,M020:null,F001:null,F002:null,F003:null,F004:null,F005:null,F006:null,F007:null,F008:null,F009:null,F010:null,F011:null,F012:null,F013:null,F014:null,F015:null,F016:null,F017:null,F018:null,F019:null,F020:null};
+//var accessLocker = {M001:0,M002:0,M003:0,M004:0,M005:0,M006:0,M007:0,M008:0,M009:0,M010:0,M011:0,M012:0,M013:0,M014:0,M015:0,M016:0,M017:0,M018:0,M019:0,M020:0,F001:0,F002:0,F003:0,F004:0,F005:0,F006:0,F007:0,F008:0,F009:0,F010:0,F011:0,F012:0,F013:0,F014:0,F015:0,F016:0,F017:0,F018:0,F019:0,F020:0};
+
+
+var available = 40;
+
+function report(){
+	var str = "";
+	for(var i in lockerStatus){
+		str +=i+":"+lockerStatus[i]+" ";
+	}
+	str +="\n";
+	for(var j in accessLocker){
+		str +=j+":"+accessLocker[j]+" ";
+	}
+	log("LockerStatues:"+str);
+}
+
+function unlock(locker){
+     leave(lockerStatus[locker],locker);
+	// if(lockerStatus[locker]!=null) leave(lockerStatus[locker],locker);
+	
+}
+function access(cardNo,locker){
+	
+	//alert(cardNo +"|" +locker);
+	document.getElementById('msg').innerHTML = "Unlocked";
+	echo("elop:[-" + cardNo +"|" + locker + "-]");
+	//document.getElementById(locker).style.backgroundColor="#0174DF";
+	//accessLocker[locker] = 1;
+	starting();
+}
+function leave(cardNo,locker){
+	//alert(cardNo +"|" +locker);
+	echo("elop:[-" + cardNo +"|" + locker + "-]");
+	echo("elup:[-|" + locker + "-]");
+	//echo("elrt:[-" + locker + "-]");
+	echo("elbk:[--]");
+	document.getElementById(locker).style.backgroundColor="#4CAF50";	
+	
+	lockerStatus[locker] = null;
+	
+}
+
+
+function check(){
+	var cardNo = document.getElementById("cardNo").value;
+	cardNo = cardNo.trim();3676595946
+	
+	if (cardNo === null||cardNo===''){		
+		document.getElementById('msg').innerHTML = "error!";
+		
+		return 0;
+	}
+	var found=false;
+	for(var i in lockerStatus){
+		log("search" + lockerStatus[i]);
+		if(lockerStatus[i] == cardNo){
+			found = true;
+			break;
+		}
+	}
+	if(found){
+		document.getElementById('msg').innerHTML = i;
+		unlock(cardNo,i);
+
+	}
+	else if(available<1){
+		document.getElementById('msg').innerHTML = "No locker available!";
+		starting();
+		return 0;
+	}
+	else
+	{
+		newUser = true;
+		document.getElementById('msg').innerHTML = "Select a locker <br> <input type='button' class='btn' value = 'cancel' onclick='starting()'>";		
+		document.getElementById("input").style.visibility = "hidden";
+
+	}
+} 
+
+function receiveMsg(received){
+ 	if(received.indexOf("elbk:{-")>-1 && received.indexOf("-}")>-1 ){
+ 		var pass = elbk(received.substring(received.indexOf("elbk:{-")+7,received.indexOf("-}")));
+ 	}
+ 	else if(received.indexOf("elks:{-")>-1 && received.indexOf("-}")>-1 ){
+ 		var pass = elks(received.substring(received.indexOf("elks:{-")+7,received.indexOf("-}")));
+ 	}
+ 	else if(received.indexOf("elkt:{-")>-1 && received.indexOf("-}")>-1 ){
+ 		var pass = elkt(received.substring(received.indexOf("elkt:{-")+7,received.indexOf("-}")));
+ 	}
+ 	else if(received.indexOf("elup:{-")>-1 && received.indexOf("-}")>-1 ){
+ 		echo("elbk:[--]");
+ 		
+ 	}
+ 	else if(received.indexOf("elop:{-")>-1 && received.indexOf("-}")>-1 ){
+ 		
+ 	}
+}
+
+function elbk(msg){
+	var lockerNo = 40;
+	available = 40;
+	var token;
+	var tempList = [];
+	for(var i = 0; i<msg.length;i++){
+		if(msg[i]=="["){
+			token="";
+			for(var j = i+1;j<msg.length;j++){
+				if(msg[j]=="]"){
+					break;
+				}
+				else{
+					token+=msg[j];
+				}
+			}
+			i=j;
+			tempList.push(token)
+		}
+	}	
+	for(i=0;i<tempList.length;i++){
+		tempList[i] = tempList[i].split("|");
+	}
+
+	//log("encrypted:" + tempList);
+	for(i=0;i<tempList.length;i++){
+		if(tempList[i][2]!=""&&tempList[i][2]!="null"){
+			lockerStatus[tempList[i][0]] = tempList[i][2];
+			available--;
+		}
+		else{
+			lockerStatus[tempList[i][0]] = null;
+		}
+	}
+	for(i in lockerStatus){
+		if(lockerStatus[i]!=null){
+			document.getElementById(i).style.backgroundColor="#FE2E2E";
+		}
+		else if(lockerStatus[i]==null){
+
+			document.getElementById(i).style.backgroundColor="#4CAF50";
+		}
+	}
+}
+function elks(msg){
+	var cardNo = msg.substring(0,msg.indexOf("|"));
+	if (cardNo === null||cardNo===''){		
+		document.getElementById('msg').innerHTML = "error!";
+		starting();
+		return 0;
+	}
+	if(available<1){
+		document.getElementById('msg').innerHTML = "No locker available!";
+		starting();
+		return 0;
+	}
+	else{
+		newUser = true;
+
+	}
+}
+function elkt(msg){
+	var cardNo = msg.substring(0,msg.indexOf("|"));
+
+	var found=false;
+	for(var i in lockerStatus){
+		if(lockerStatus[i] == cardNo){
+			found = true;
+			break;
+		}
+	}
+	if(found){
+		//leave(cardNo,i);
+	}
+}
+//web socket part
+	var ws = null;
+
+    function connect() {
+
+    	if (window.location.protocol == 'https:') {                
+            var target = "wss://192.168.1.215:8080/locker/websocket/echoMessage";
+        } else {
+            var target = "ws://192.168.1.215:8080/locker/websocket/echoMessage";
+        }            
+        
+        if ('WebSocket' in window) {
+            ws = new WebSocket(target);
+        } else if ('MozWebSocket' in window) {
+            ws = new MozWebSocket(target);
+        } else {
+            alert('WebSocket is not supported by this browser.');
+            return;
+        }
+        ws.onopen = function () {
+		   
+            echo("elbk:[--]");
+        };
+        ws.onmessage = function (event) {
+
+        	receiveMsg(event.data);
+        };
+        ws.onclose = function () {
+        };            
+    }
+
+    function echo(message) {
+        if (ws != null) {                            
+        	if(message != null && message != "") ws.send(message);
+        } else {
+            alert('WebSocket connection not established, please connect.');
+        }
+    }
+
+   
+    window.onload = function(){
+    	//document.getElementById('msg').innerHTML = 'Connecting to server...';
+    	connect();
+    }
+
+
+
+</script>
+</head>
+<body>
+
+
+<div class="table">
+
+	
+	<div class="male">Male
+		
+
+	
+		<div style="display:table;">
+			<script>
+				var mList = new Array("M001", "M002", "M003","M004","M005","M006","M007","M008","M009","M010","M011","M012","M013","M014","M015","M016","M017","M018","M019","M020");		
+				for(var i = 0; i<4; i++){
+					document.write("<div style='display:table-row;'>");
+					for(var j = 0;j<5;j++){
+						document.write(" <div class='td' ><button class='locker' id="+mList[5*i+j]+" onClick='unlock(this.id)'>"+mList[5*i+j]+"</button></div>");
+					}					
+					
+					document.write("</div>");
+				}
+			</script>
+		</div>
+	</div>
+	<br>
+	<div class="female">
+		Female
+
+		<div style="display:table;">
+			<script>
+
+				var fList = new Array("F001", "F002", "F003","F004","F005","F006","F007","F008","F009","F010","F011","F012","F013","F014","F015","F016","F017","F018","F019","F020");		
+				for(var i = 0; i<4; i++){
+					document.write("<div style='display:table-row;'>");
+					for(var j = 0;j<5;j++){
+						document.write(" <div class='td' ><button class='locker' id="+fList[5*i+j]+" onClick='unlock(this.id)'>"+fList[5*i+j]+"</button></div>");
+					}					
+					
+					document.write("</div>");
+				}
+			</script>
+		</div>
+	</div>
+
+</div>
+	    
+</body>
+</html>
